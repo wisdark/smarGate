@@ -1,5 +1,5 @@
 # 中文 | [English](https://github.com/lazy-luo/smarGate/blob/master/README_en.md)
-# 快速概览
+# 快速概览<a href=https://github.com/lazy-luo/smarGate/wiki/快速上手手册>【快速上手手册】</a><br>
 * 平台适配，支持linux、windows、macos、android、（tob，小型机：hp-unix、solaris、AIX）<br>
 * cpu架构，支持x86、arm、mips（tob：alpha、PowerPC、SPRAC）<br>
 * 注重安全，“内网”到“内网”的穿透，无需映射任何端口到外网，不更改任何防火墙配置<br>
@@ -215,6 +215,21 @@ ps：捐赠建议附上注册用户名<br>
 <summary>
 	<mark><font size=5 color=darkred>更新历史</font></mark>
 </summary>
+	
+### 2021-11-06更新到v0.30.3: <br>
+1、修复app端内存占用只显示jvm不包含native的BUG<br>
+2、优化网络引擎，提升高并发下的稳定性及公平性 <br>
+	
+### 2021-10-17更新到v0.30.2: <br>
+1、自定义代理支持ssl验证<br>
+2、网络P2P情况下，支持配置成ssl隧道（ **要求服务端必须配置证书** ）<br>
+```
+<app-parameter>
+  <ssl-tunnel-required value="first" /><!-- 取值有3个：none、first、only -->
+  ...
+</app-parameter>
+```
+3、其他优化<br>
 	
 ### 2021-09-24更新到v0.30: <br>
 1、提供了Android服务端开机自启动支持(仅服务端模式，且需要自行手动授权)<br>
