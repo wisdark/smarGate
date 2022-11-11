@@ -1,34 +1,32 @@
 # 中文 | [English](https://github.com/lazy-luo/smarGate/blob/master/README_en.md)
 # 快速概览<a href=https://github.com/lazy-luo/smarGate/wiki/快速上手手册>【快速上手手册】</a><br>
 * 平台适配，支持linux、windows、macos、android、（tob，小型机：hp-unix、solaris、AIX）<br>
-* cpu架构，支持x86、arm、mips（tob：alpha、PowerPC、SPRAC）<br>
+* cpu架构，支持x86、arm、mips、riscv（tob：alpha、PowerPC、SPRAC）<br>
 * 注重安全，“内网”到“内网”的穿透，无需映射任何端口到外网，不更改任何防火墙配置<br>
-* 注重带宽，”4G手机+v6宽带“采用P2P方式访问内网服务（v4支持NAT1-3穿透）<br>
+* 注重带宽，”4G手机+v6宽带“采用P2P方式访问内网服务（基于TCP协议，v4支持NAT1-3穿透）<br>
 * 注重节约，无需购买vps、无需公网IP；家中淘汰Android手机可做服务器<br>
 * 注重可靠，随用随有，可7*24不间断服务，且不受UDP协议Qos之苦<br>
 * 注重可控，客户端一点配置，且随时随地控制服务开启/关闭<br>
 * 注重环保，免安装，体量小巧（mini版1MB左右） allinone，高性能且资源占用最少<br>
 * 注重便携，无论工作或是度假，不管在任何地方，只要手机有网络，一切尽在掌控<br>
 * ......如果这都是你想要的！请耐心继续往下看；如果你还想要...请提issue，【更新历史】也有看头哦<br>
-# 移动网关
-* 无需公网IP，提供内网穿透能力，通过加密隧道，能安全的将内网服务暴露出来. <br>
-* 支持p2p通讯（基于TCP协议，p2p通道可用时显示为绿色）<br>
-* 支持自定义代理服务器 <br>
 * 免费，测试稳定后考虑开源. <br>
 * 包含一个android客户端和需内网安装的服务端.<br>
+
 # APP端配置（必须）--- 无法正常使用典型情况
 * 必须配置“允许后台运行”权限，否则切后台即被系统断连
 * 必须配置“休眠时始终保持网络连接”，否则一旦休眠则被系统断连
-* 可以配置“允许自启动”权限，否则Android服务端模式下无法开机启动（v0.30版本）
-* 可以配置“麦克风”权限，否则Android服务端无法提供语音监听功能（v0.30版本）
-* 注意：SG不提供到国外IP的数据转发
+* 可以配置“允许自启动”权限，否则Android服务端模式下无法开机启动（v0.30及后续版本）
+* 可以配置“麦克风”权限，否则Android服务端无法提供语音监听功能（v0.30及后续版本）
+* 注意：SG官方代理不提供到港澳台及国外IP的数据转发
 ## smarGate是什么？<br>
 #### 官方命名为“移动网关”，通过手机客户端将位于内网的服务端网络进行按需暴露，核心引擎采用c++实现。<br>
 #### “移动网关”是用户私有网关，所有共享访问入口都在客户端，不是类似其它穿透工具主推的面向域名的公共访问入口。打个比方：smarGate是将防盗门随身携带，其它穿透产品是将防盗门放到公共场所，额...虽然需要钥匙，但有种职业叫开锁匠<br>
 
 ##### 具备如下技术特点：<br>
 * 安全性 <br>
-  * 手机客户端作为唯一的访问入口，按需开放，及时关闭。<br>
+  * 手机客户端作为主要的访问入口，按需开放，及时关闭。<br>
+  * 支持服务端间端口映射组网（v0.31及以后版本）。<br>
   * 电脑可以接入手机热点或wifi环境下通过访问手机开放的端口穿透到内网进行访问（客户端会显示手机ip）。<br>
   * 手机网络一般为私有网段别人无法访问。<br>
   * 用户间隔离。<br>
@@ -47,13 +45,18 @@
 	* socket 连接池<br>
 	* 多级任务队列 <br>
 	* ...<br>
-* 附：交互示意图<br>
-![operator](https://github.com/lazy-luo/smarGate/blob/master/res/smarGateArch.png)<br>
-
+<details>
+<summary>
+	<mark><font size=6 color=darkred>附：交互示意图</font></mark>
+</summary>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/smarGateArch.png" /><br>
+</details>
+	
 ## smarGate有什么主要功能？<br>
 * 支持代理穿透<br>
   * 官方提供免费的代理服务器（共享带宽，多人共用时比较慢，最佳实践为启用自有代理服务器）<br>
-  * <I>如果自己有云服务器（具备公网ip），用户可自定义自己的代理服务器，且在代理服务器上安装proxy_server。所有数据传输走用户配置的代理服务器（为了防止中间人攻击，代理服务器需要用户生成自签名证书）</I> <br>
+  * <I>如果自己有云服务器（具备公网ip），用户可自定义自己的代理服务器，且在代理服务器上安装proxy_server。所有数据传输走用户配置的代理服务器（代理服务器需要证书，可自动生成也可配置已有证书）</I> <br>
+
 ```  
   1、“代理服务器”配置如下（代理服务器必须允许任意端口“入站”连接）：
 ```
@@ -62,8 +65,10 @@
     <app-config code="PROXY" name="proxy-server">
         <app-parameter>
 	        <proxy-service-port value="9001"/><!--自定义代理端口 -->
+		<owner-id value="xxxx" /><!-- xxxx 为注册成功返回的用户ID -->
 		<access-token value="nnnnn”"/><!--访问token，必须为数字【可选配】 -->
-          <!-- 如果自己有证书及私钥，则配置如下项，启动安全的SSL通道，其中文件名需要配置正确；没有证书则不需要配置，启用普通tcp连接
+		<ssl-create-certfile value="true" /><!-- 如未用如下选项指定证书，则自动生成证书【必须确保安装openssl】，默认为 false 代表无需自动生成 -->
+          <!-- 如果自己有证书及私钥，则配置如下项，启动安全的SSL通道，其中文件名需要配置正确；没有证书则不需要配置，可启用上面自动生成证书选项
 	        <ssl-cacert-file value="xxx.crt"/>
 	        <ssl-privatekey-file value="xxx.key"/>
           -->
@@ -80,6 +85,7 @@
 ```
 ......
     <app-parameter>
+       	     <ssl-create-certfile value="true" />
        <!-- 如果代理服务器启动安全的SSL通道，这里必须配置证书及私钥
 	     <ssl-cacert-file value="xxx.crt"/>
 	     <ssl-privatekey-file value="xxx.key"/>
@@ -88,8 +94,8 @@
     <moudle-parameter>
       ......
     </moudle-parameter>
-    <!-- 配置上述代理服务器的ip或域名+端口，注意：ip必须为公网IP。ssl选项必须配置正确，如果代理服务器有证书且生效则配置为true否则为false -->
-    <channel address="xxx.xxx.xxx.xxx:9001" ssl="false" token="nnnnn" /><!--访问token，必须与代理服务器一致，如果没有则不配 -->
+    <!-- 配置上述代理服务器的ip或域名+端口，注意：ip必须为公网IP。ssl选项必须配置正确，如果代理服务器有证书（包括自动生成证书）且生效则配置为true否则为false -->
+    <channel address="xxx.xxx.xxx.xxx:9001" ssl="true" token="nnnnn" /><!--访问token，必须与代理服务器一致，如果没有则不配 -->
 ```
 * 支持p2p通道<br>
   * 使用TCP协议进行p2p穿透，提升安全性<br>
@@ -106,42 +112,128 @@
 	<tr><td>NAT3-4</td><td>NAT4</td><td>NO</td></tr>
   </table>
   
-* 支持外网发布（有违安全设计理念，免费版不提供支持）<br>
+* 支持外网发布（有违安全设计理念，v0.31版本开放）<br>
   * 其它内网穿透工具的主推模式，将内网服务直接映射到外网端口<br>
-
+* 支持服务端之间的P2P端口映射（v0.31及以后版本） <br>
+  * 具体配置主要通过 ip@index方式支持<br>
+  
+<details>
+<summary>
+	<mark><font size=6 color=darkred>附：主要功能简述</font></mark>
+</summary>
+	
+```	
+1、支持基于tcp的P2P连接隧道
+	。安全可靠，避免Qos
+2、支持所有基于tcp的各类协议”透明代理”
+	。可代理所有内网tcp服务（ssh、rdp、smb、vnc、摄像头、数据库服务等）
+3、支持HTTP、HTTPS to HTTP
+	。支持http-head rewrite，支持将https服务代理成http
+4、支持udp over tcp
+	。支持udp协议的服务代理
+5、透明方式（无需关注ipv6地址）支持ipv6隧道
+	。自动建立v6隧道，访问时始终使用v4地址
+6、支持自定义代理（需外网ip），接管所有数据转发
+	。无法p2p时，自动连接自定义代理，实现数据转发
+7、自定义代理支持token及白名单配置
+	。支持安全机制
+8、支持多级级联代理
+	。支持链式代理，支持多级无环代理
+9、支持手机作为访问唯一入口 —— 安全 + 移动便捷
+	。手机在手、随用随有
+10、端口映射全动态配置，支持映射配置“热拔插”
+	。代理增、删及时生效，无需重启
+11、所有功能app端“一点配置”
+	。客户端一点配置，服务端运行时免配
+12、支持P2P隧道及自定义代理隧道自动探测及连接
+	。无需干预，app自动连接，自动重试
+13、支持动态协商端口,支持指定协商端口
+	。默认动态端口协商，支持配合防火墙配置协商端口
+14、支持隧道连接优先级（P2P—>自定义代理-->官网代理）
+	。数据传输时，支持优先级隧道
+15、支持ssl加密隧道
+	。支持P2P及代理隧道ssl加密，确保数据传输不泄密
+16、支持流量限制
+	。支持进行网络带宽限制，默认不限流
+17、支持网络切换（如：移动<—>wifi）自动识别+自动连接
+	。app端智能重连，始终确保服务可用性
+18、支持不同局域网主机间端口映射 —— 如有一端主机有外网ip则可直接外网访问（version > v0.31）
+	。支持服务端组网映射，流量无需通过手机app（传统穿透模式）
+19、app支持服务端模式，可以将手机配置成服务端
+	。android手机可作为服务端
+20、支持远程文件管理功能：浏览、上传、下载、删除，支持断点续传（version >= v0.31.6）
+	。在有p2p或自定义代理时，激活文件管理功能，可对手机和服务端电脑文件进行基本操作
+。。。待续
+	
+```
+</details>
+	
 ## 使用指南:<br>
-<a href=https://github.com/lazy-luo/smarGate/wiki/常用服务穿透配置>【常用服务配置】</a><br>
-### 1、下载android app（app-release.apk包含客户端和服务端）支持armv7及arm64 cpu架构<br>
-### 2、注册新用户（邀请码必填，为数字，可任意填。ps：如果必填信息未填完整,或包含中文字符，会注册失败）<br>
-![login](https://github.com/lazy-luo/smarGate/blob/master/res/login.png)<br>
-![register](https://github.com/lazy-luo/smarGate/blob/master/res/register.png)<br>
-### 3、注册成功后请务必记住返回的服务ID(N) 【重要】：注册成功后务必在1小时内完成首次登录<br>
-![register result](https://github.com/lazy-luo/smarGate/blob/master/res/registerok.png)<br>
-### 4、下载内网服务器适合的服务端版本（目前支持linux-x86-32/64，windows，及linux-arm【树莓派、群晖】,另：Android app自带服务端模式）<br>
-### 5、解压服务端压缩包，修改配置文件(conf-proxy.xml):<br>
+<a href="https://www.baidu.com/s?wd=smargate%20内网穿透">使用实践-度娘</a><br><br>
+<a href="https://www.google.com/search?q=smargate+内网穿透">使用实践-google</a>
+### 1、下载app && 注册新用户
+* 下载android app（app-release.apk包含客户端和服务端）支持armv7及arm64 cpu架构<br>
+* 注册新用户（邀请码必填，为数字，可任意填。ps：如果必填信息未填完整,或包含中文字符，会注册失败）<br>
+* 注册成功后请务必记住返回的服务ID(N) 【重要】：注册成功后务必在1小时内完成首次登录<br>
+<details>
+<summary>
+	<mark><font size=5 color=darkred>展开图示</font></mark>
+</summary>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/login.png" /><br>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/register.png" /><br>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/registerok.png" /><br>
+</details>
+
+### 2、下载服务端 && 配置
+* 下载内网服务器适合的服务端版本（目前支持linux-x86-32/64，windows，及linux-arm【树莓派、群晖】,另：Android app自带服务端模式）<br>
+* 解压服务端压缩包，修改配置文件(conf-proxy.xml):<br>
+<details>	
+<summary>
+	<mark><font size=5 color=darkred>配置样例</font></mark>
+</summary>
+	
 ```
   <?xml version="1.0" encoding="GBK"?>
     <app-config code="PROXY" name="proxy-server">
+       <app-parameter>
+	<!-- [ none | first | only ] ,none is default. 为P2P连接启用SSL加密，only代表只接受加密连接 -->
+	<ssl-tunnel-required value="first" />
+	<!-- 如未用如下选项指定证书，则自动生成证书【必须确保安装openssl】，默认为 false 代表无需自动生成 -->
+	<ssl-create-certfile value="true" /> 
+ <!-- 以下选项仅适用dynamic下的mini版本，指定ssl库及crypto库实际文件，linux下可由：ldd $(which openssl)|grep -E "libssl|libcrypto"|awk '{print $1}' 获取
+	<libssl value="libssl.so" />
+	<libcrypto value="libcrypto.so" />
+ -->
+       </app-parameter>
        <moudle-parameter>
         <log-level value="LOG_ERROR"/>
         <log-write-mode value="CONSOLE_ONLY"/>
         <app-name value="xxxxx [name of service points]." /><!-- need modify -->
         <app-description value="yyyyy [description of service points]" /><!-- need modify -->
-        <user-audit value="N:index"/><!-- need modify (N 为注册成功返回的服务ID，index为自定义的服务端实例序号，建议从1开始，不能重复. 例如:[12345:1])-->
+	<!-- user-audit need modify (N 为注册成功返回的服务ID，index为自定义的服务端实例序号，建议从1开始，不能重复. 例如:[12345:1])-->
+        <user-audit value="N:index"/>
     </moudle-parameter>
   </app-config>
 ```
-### 6、执行服务端命令(参数说明 i:最大接入连接数,o:最大接出连接数,w:最大线程数)<br>
+</details>
+
+### 3、运行内网服务端(命令参数说明 i:最大接入连接数,o:最大接出连接数,w:最大线程数)<br>
 * linux下执行命令：chmod +x proxy_server && nohup ./proxy_server -i1000 -o1000 -w8 >/dev/null & <br>
 * windows下执行命令：proxy_server.exe -i1000 -o1000 -w8 <br>
 * Android 手机/设备：运行app -〉编辑模式下，配置服务端信息 -〉打开“服务端”开关 -〉重启app <br>
-### 7、使用注册时的用户名/密码登陆手机客户端<br>
-![operator](https://github.com/lazy-luo/smarGate/blob/master/res/oper1.png)<br>
-### 8、在客户端中可以看到上线的服务端，可以在客户端上定义端口反弹规则<br>
-![operator](https://github.com/lazy-luo/smarGate/blob/master/res/oper2.png)<br>
-### 配置中的“远程ip”为“访问点”对应内网中的某台主机ip（localhost或127.0.0.1代表内网server端所在机器本身）
-![operator](https://github.com/lazy-luo/smarGate/blob/master/res/oper3.png)<br>
-### 9、电脑或手机可以直接访问手机客户端设置的服务（如ssh、http等）<br>
+* OpenWrt mips设备安装请见：<a href=https://github.com/lazy-luo/smarGate/issues/65>【MIPS linux下正确使用方式】</a><br>
+### 4、登陆手机app && 配置端口映射 <a href="https://github.com/lazy-luo/smarGate/wiki/常用服务穿透配置">【常用服务配置】</a><br>
+* 在客户端中可以看到上线的服务端（“访问点”），可以在客户端上定义端口映射规则<br>
+<details>
+<summary>
+	<mark><font size=5 color=darkred>展开图示</font></mark>
+</summary>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/oper2.png" /><br>
+<b>配置中的“远程ip”为“访问点”对应内网中的某台主机ip（localhost或127.0.0.1代表内网server端所在机器本身）</b>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/oper3.png" /><br>
+</details>
+
+### 5、电脑或手机可以直接访问手机客户端设置的服务（如ssh、http等）<br>
 ## 补充说明:<br>
 * 所有版本已经打包了依赖，开箱即用.<br>
 * 系统将自动清除30天以上未使用的“僵尸账号”.<br>
@@ -197,7 +289,7 @@
   2、android客户端设置好后让其在后台运行，如果始终保持前台会定时刷新，webview控件空耗电，你懂的;<br>
   3、服务端始终保持后台运行，安全放心，只有你自己才能访问；<br>
   ...使用场景...<br>
-  <a href=https://cloud.tencent.com/developer/article/1926888>【家用摄像头P2P直连】</a><br>
+  <a href="https://cloud.tencent.com/developer/article/1926888">【家用摄像头P2P直连】</a><br>
 ## 免责申明<br>  
 * 请您仔细阅读以下申明，您在使用smarGate工具软件，表明您对以下内容的接受：<br> 
   1、严禁使用本软件从事计算机黑客以及其他任何危害计算机信息网络安全的行为;<br> 
@@ -217,6 +309,88 @@ ps：捐赠建议附上注册用户名<br>
 <summary>
 	<mark><font size=5 color=darkred>更新历史</font></mark>
 </summary>
+
+### 2022-11-04更新到v0.31.7：<br>
+1、提供一键版本升级功能，无需手动更新<br>
+* 此功能版本源指向github，如无法更新，请确认github连通性<br>
+* 更新后一般10-20秒左右恢复可用<br>
+* 服务端提供自动更新选项（每天检测一次），默认关闭<br>	
+```
+<auto-update value="true" />
+```
+
+### 2022-10-20更新到v0.31.6：<br>
+1、文件管理增加删除文件功能<br>
+2、文件管理增加断点续传功能<br>
+3、文件管理增加文件时间<br>
+4、文件管理windows下增加切换磁盘操作<br>
+* 此功能仅在有P2P连接或自定义代理连接时激活<br>
+* 通过拖拽模式进行上传和下载<br>	
+* 通过双击弹出文件删除确认框<br>		
+
+### 2022-10-14更新到v0.31.5：<br>
+1、修复自定义代理短间隔重连情况下连不上的BUG<br>
+2、新增了简易文件上传下载功能，可方便同步异地文档<br>
+* 此功能仅在有P2P连接或自定义代理连接时激活<br>
+* 通过拖拽模式进行上传和下载<br>	
+	
+3、版本更新到v0.31.5<br>
+	
+### 2022-09-05：<br>
+1、解决自定义代理连接异常断开BUG<br>
+2、版本保持不变<br>
+
+### 2022-08-30更新到v0.31.4：<br>
+1、降低运行时虚拟内存占用<br>
+2、常规性优化<br>
+3、版本更新到v0.31.4<br>
+
+### 2022-08-14更新到v0.31.3：<br>
+1、修复mips架构系统无法连接自定义代理的BUG<br>
+2、修复HTTP协议加载完成时间长的问题<br>
+3、版本更新到v0.31.3<br>
+
+### 2022-08-06更新到v0.31.2：<br>
+1、修复Windows平台偶发闪退BUG，增强稳定性<br>
+2、P2P连接及自定义代理进行keep-alive操作，尽可能避免重连时间窗口，提升可用性<br>
+3、其它可用性优化,降低app能耗<br>
+4、版本更新到v0.31.2<br>
+
+### 2022-07-28更新到v0.31.1：<br>
+1、修复特定情况下，服务端重启，组网配置不生效的BUG<br>
+2、修复NAT1服务器P2P协商BUG<br>
+3、版本更新到v0.31.1<br>
+
+### 2022-07-22更新到v0.31: <br>
+1、提供服务端之间端口映射，服务端如有公网ip则可直接从公网访问(仅需在app上配置)
+* 配置方式，在原有映射配置“远程ip”配置中支持：ip@idx方式进行配置(idx为不同“访问点”的序号)
+* 此种方式配置的“本地端口”实际是在当前“访问点”所在主机上（注意：不在APP所在手机上）
+* 服务端间如能P2P成功（或自定义代理连接成功）则配置的映射将生效，否则不生效
+* APP上只有在P2P连接时才会定时刷新服务端间代理状态
+* 配置成功后需要等待10秒左右才能在App上看到实际状态
+
+2、版本升级到v0.31<br>
+
+### 2022-06-30: <br>
+1、修复32位大端机器运行服务端，无法正常代理的BUG<br>
+2、版本暂保持不变<br>
+
+### 2022-05-17: <br>
+1、服务端支持自动生成自签名证书（默认文件名为server.xxx）<br>
+-->a、配置ssl-create-certfile选项 <br>
+```
+<app-parameter>	
+  <ssl-create-certfile value="true" />
+...
+</app-parameter>
+```
+-->b、确保安装openssl <br>
+-->c、不要指定证书文件（不配置 ssl-cacert-file 及 ssl-privatekey-file）<br>
+	
+### 2022-05-04: <br>
+1、支持riscv32/64架构，编译时同mips架构使用musl库进行链接<br>
+2、优化网络传输层<br>
+3、版本暂保持不变<br>
 	
 ### 2022-02-07更新到v0.30.4: <br>
 1、提供mips64el支持<br>
@@ -246,7 +420,7 @@ ps：捐赠建议附上注册用户名<br>
 ### 2021-05-03更新到v0.29.2: <br>
 1、修复Android高版本无法退出问题<br>
 2、优化网络:修复了可能带来网络延迟的BUG，进一步提升网络传输速度<br>
-3、提供版本号展示，便于客户端及服务端<br>
+3、提供版本号展示，便于客户端及服务端版本管理<br>
 4、优化app cpu占用，降低能耗<br>
 
 ### 2021-03-05更新到v0.29: <br>
