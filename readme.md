@@ -1,5 +1,5 @@
 # 中文 | [English](https://github.com/lazy-luo/smarGate/blob/master/README_en.md)
-# 快速概览<a href=https://github.com/lazy-luo/smarGate/wiki/快速上手手册>【快速上手手册】</a><br>
+# 快速概览<a href=https://github.com/lazy-luo/smarGate/wiki/快速上手手册>【快速上手手册】</a> <a href="https://b23.tv/nm52P5Q">【三方视频教学- B站】</a><br>
 * 平台适配，支持linux、windows、macos、android、（tob，小型机：hp-unix、solaris、AIX）<br>
 * cpu架构，支持x86、arm、mips、riscv（tob：alpha、PowerPC、SPRAC）<br>
 * 注重安全，“内网”到“内网”的穿透，无需映射任何端口到外网，不更改任何防火墙配置<br>
@@ -66,7 +66,7 @@
         <app-parameter>
 	        <proxy-service-port value="9001"/><!--自定义代理端口 -->
 		<owner-id value="xxxx" /><!-- xxxx 为注册成功返回的用户ID -->
-		<access-token value="nnnnn”"/><!--访问token，必须为数字【可选配】 -->
+		<access-token value="nnnnn"/><!--访问token，必须为数字【可选配】 -->
 		<ssl-create-certfile value="true" /><!-- 如未用如下选项指定证书，则自动生成证书【必须确保安装openssl】，默认为 false 代表无需自动生成 -->
           <!-- 如果自己有证书及私钥，则配置如下项，启动安全的SSL通道，其中文件名需要配置正确；没有证书则不需要配置，可启用上面自动生成证书选项
 	        <ssl-cacert-file value="xxx.crt"/>
@@ -169,6 +169,7 @@
 </details>
 	
 ## 使用指南:<br>
+<a href="https://b23.tv/nm52P5Q">三方视频教学- B站</a><br><br>
 <a href="https://www.baidu.com/s?wd=smargate%20内网穿透">使用实践-度娘</a><br><br>
 <a href="https://www.google.com/search?q=smargate+内网穿透">使用实践-google</a>
 ### 1、下载app && 注册新用户
@@ -309,6 +310,11 @@ ps：捐赠建议附上注册用户名<br>
 <summary>
 	<mark><font size=5 color=darkred>更新历史</font></mark>
 </summary>
+
+### 2022-12-14更新到v0.31.8：<br>
+1、APP服务端模式支持配置自定义代理及SSL加密<br>
+2、自定义代理服务器支持SSL自签名证书下发<br>
+3、其它优化<br>
 
 ### 2022-11-04更新到v0.31.7：<br>
 1、提供一键版本升级功能，无需手动更新<br>
