@@ -1,5 +1,56 @@
-# 中文 | [English](https://github.com/lazy-luo/smarGate/blob/master/README_en.md)
-# 快速概览<a href=https://github.com/lazy-luo/smarGate/wiki/快速上手手册>【快速上手手册】</a> <a href="https://b23.tv/nm52P5Q">【三方视频教学- B站】</a><br>
+# samrGate（SG） 中文 | [English](https://github.com/lazy-luo/smarGate/blob/master/README_en.md)
+
+## SG是什么？
+* 是个跨网段远程端口映射工具
+  * 支持内网到内网、内网到外网映射
+* 是个随身携带可灵活控制访问入口的工具
+  * 所有配置操作都在app客户端，一眼看全、高度安全可控
+  * 访问入口既可配置到app所在手机上，也能配置到任意SG服务端电脑上
+* 是个简单的远程文件管理工具
+  * 可对手机及服务端所在服务器进行文件管理操作
+* 是个简单的socks代理工具
+* 是个简单的http(s)代理工具
+* ......
+
+## SG有什么特点？
+* 所有映射都通过app客户端进行配置，服务端运行时免配置
+* 支持服务端到APP及服务端到服务端的端口映射
+  * 可以将服务端所在内网任意机器任意端口映射到app所在手机上，通过访问手机本地端口进行穿透访问
+  * 可以通过app客户端配置，将A服务端内网任意主机任意端口映射到B服务端所在主机上
+* 支持链式代理
+* 支持多用户隔离
+* 支持ipv4/6，基于TCP进行P2P穿透
+* 支持自建代理进行数据转发
+* 支持数据隧道加密（TLS）
+* 支持自动数据隧道选择
+  * 优先P2P，次选自定义代理，官方代理兜底
+* 支持自动版本升级及APP客户端上一键升级
+* socks及http(s)代理支持自定义ip白名单及域名白名单，支持CIDR格式IP段及域名统配符
+* 支持TCP协议服务，也支持UDP协议
+  * UDP采用UDP over TCP模式
+* ......
+
+## SG能解决什么问题？
+* 无视内外网，安全访问内网资源的场景
+* 需要P2P高带宽安全传输的场景
+* 有公网IP，需要将内网服务发布出去的场景
+* ......
+
+## SG怎么使用？
+* 下载APP并注册
+* 下载合适的服务端版本，根据用户ID进行配置并运行
+* 登录APP进行端口映射配置
+* 使用配置的映射进行访问
+
+## 有兴趣再细看
+
+<details>
+<summary>
+	<mark><font size=3 color=darkred>查看详细</font></mark>
+</summary>
+
+# 
+## 快速概览<a href=https://github.com/lazy-luo/smarGate/wiki/快速上手手册>【快速上手手册】</a> <a href="https://www.bilibili.com/video/BV1LM411k7Rf">【三方视频教学- B站】</a><br>
 * 平台适配，支持linux、windows、macos、android、（tob，小型机：hp-unix、solaris、AIX）<br>
 * cpu架构，支持x86、arm、mips、riscv（tob：alpha、PowerPC、SPRAC）<br>
 * 注重安全，“内网”到“内网”的穿透，无需映射任何端口到外网，不更改任何防火墙配置<br>
@@ -13,7 +64,7 @@
 * 免费，测试稳定后考虑开源. <br>
 * 包含一个android客户端和需内网安装的服务端.<br>
 
-# APP端配置（必须）--- 无法正常使用典型情况
+## APP端配置（必须）--- 无法正常使用典型情况
 * 必须配置“允许后台运行”权限，否则切后台即被系统断连
 * 必须配置“休眠时始终保持网络连接”，否则一旦休眠则被系统断连
 * 可以配置“允许自启动”权限，否则Android服务端模式下无法开机启动（v0.30及后续版本）
@@ -163,13 +214,18 @@
 	。android手机可作为服务端
 20、支持远程文件管理功能：浏览、上传、下载、删除，支持断点续传（version >= v0.31.6）
 	。在有p2p或自定义代理时，激活文件管理功能，可对手机和服务端电脑文件进行基本操作
+21、支持内置socks5、http代理（version >= v0.32.1）
+	。毕竟有三方专业工具如ss5、squid等，因此socks5及http代理是可选的功能
+22、socks5、http代理支持域名和IP白名单（version >= v0.32.1）
+	。域名白名单支持四种模式匹配(完全匹配、向前匹配、向后匹配、中间匹配)，默认配置文件名.white_list
+	。IP白名单支持CIDR格式ip-range配置，默认配置文件名.ipchecks
 。。。待续
 	
 ```
 </details>
 	
 ## 使用指南:<br>
-<a href="https://b23.tv/nm52P5Q">三方视频教学- B站</a><br><br>
+<a href="https://www.bilibili.com/video/BV1LM411k7Rf">三方视频教学- B站</a><br><br>
 <a href="https://www.baidu.com/s?wd=smargate%20内网穿透">使用实践-度娘</a><br><br>
 <a href="https://www.google.com/search?q=smargate+内网穿透">使用实践-google</a>
 ### 1、下载app && 注册新用户
@@ -181,8 +237,7 @@
 	<mark><font size=5 color=darkred>展开图示</font></mark>
 </summary>
 <img src="https://github.com/lazy-luo/smarGate/blob/master/res/login.png" /><br>
-<img src="https://github.com/lazy-luo/smarGate/blob/master/res/register.png" /><br>
-<img src="https://github.com/lazy-luo/smarGate/blob/master/res/registerok.png" /><br>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/reg.png" /><br>
 </details>
 
 ### 2、下载服务端 && 配置
@@ -229,12 +284,15 @@
 <summary>
 	<mark><font size=5 color=darkred>展开图示</font></mark>
 </summary>
-<img src="https://github.com/lazy-luo/smarGate/blob/master/res/oper2.png" /><br>
-<b>配置中的“远程ip”为“访问点”对应内网中的某台主机ip（localhost或127.0.0.1代表内网server端所在机器本身）</b>
-<img src="https://github.com/lazy-luo/smarGate/blob/master/res/oper3.png" /><br>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/proxy.png" /><br>
+<b>服务端间端口映射配置需要在ip后加上服务端index序号，格式为：ip@idx</b>
+<img src="https://github.com/lazy-luo/smarGate/blob/master/res/server-proxy.png" /><br>
 </details>
 
 ### 5、电脑或手机可以直接访问手机客户端设置的服务（如ssh、http等）<br>
+
+</details>
+
 ## 补充说明:<br>
 * 所有版本已经打包了依赖，开箱即用.<br>
 * 系统将自动清除30天以上未使用的“僵尸账号”.<br>
@@ -245,6 +303,11 @@
 >> 1、设置 -> 无线及网络 -> WLAN -> 系统休眠保持连接  "允许" （否则，系统休眠会被断连）<br>
 >> 2、设置 -> 无线及网络 -> 移动网络 -> 高级 ->始终保持数据连接 "允许"<br>
 
+<details>
+<summary>
+	<mark><font size=5 color=darkred>常见问题答疑</font></mark>
+</summary>
+	
 * Q：如何下载安装 android app？<br>
   >> 1、用android手机浏览器打开 https://github.com/lazy-luo/smarGate/raw/master/app-release.apk <br>
   >> 2、弹出框中下载安装 <br>
@@ -283,7 +346,9 @@
    ![ipv6 p2p](https://github.com/lazy-luo/smarGate/blob/master/res/ipv6p2p.png)<br>
    >> A:自定义路由标识为：<br>
    ![userdefineproxyer p2p](https://github.com/lazy-luo/smarGate/blob/master/res/userdefineproxyer.png)<br>
-   
+
+</details>
+
 ## 最佳实践<br>  
 * 以下为推荐使用的最佳实践，供参考：<br> 
   1、android客户端设置为“自动登录”，免除每次输入用户名/密码的麻烦;<br> 
@@ -310,6 +375,76 @@ ps：捐赠建议附上注册用户名<br>
 <summary>
 	<mark><font size=5 color=darkred>更新历史</font></mark>
 </summary>
+
+### 2024-05-11<br>
+1、启用异步连接，防止慢连接阻塞正常连接<br>
+2、修复链式代理、Socks5、http代理在特定情况下无法释放连接的BUG<br>
+
+### 2024-04-27更新到v0.40.2：<br>
+1、改进P2P的连接成功率<br>
+2、修复部分已知BUG<br>
+3、版本更新到v0.40.2<br>
+  
+### 2024-04-18：<br>
+1、收藏夹BUG修复<br>
+2、新增服务备注功能，便于服务识别及打标<br>
+  
+### 2024-04-10：<br>
+1、VIP支持百度地图定位<br>
+* APP服务端支持GPS定位
+* 百度地图开放平台，自行申请“浏览器端”AK，然后将AK配置到SG客户端中，即可正常使用地图定位功能
+  
+2、版本更新到v0.40.1<br>
+
+### 2024-02-02：<br>
+1、APP易用性更新，后续版本将采用全新界面<br>
+2、修复特定情况无法创建ipv6隧道的BUG<br>
+3、APP增加收藏夹功能，常用连接一览无余<br>
+4、版本更新到v0.32.3<br>
+
+### 2023-11-28：<br>
+1、老幼安全防护，支持GPS定位，便于掌握关怀对象所在经纬度（自行手动授权）<br>
+* 此功能仅支持Android服务端<br>
+* 坐标获取成功，则经纬度坐标将会自动复制到剪贴板<br>
+
+2、其它优化<br>
+
+### 2023-11-17更新到v0.32.2：<br>
+1、socks协议支持用户名/密码验证<br>
+2、支持保存及播放录音（VIP）<br>
+3、版本更新到v0.32.2<br>
+
+### 2023-10-25更新到v0.32.1：<br>
+1、修复bug<br>
+2、完善支持socks协议(仅支持ipv4 tcp)<br>
+3、完善支持HTTP proxy协议<br>
+4、APP支持VIP功能许可<br>
+5、版本更新到v0.32.1<br>
+
+### 2023-09-08更新到v0.31.12：<br>
+1、修复bug<br>
+2、试验性支持socks协议(仅支持ipv4 tcp)<br>
+3、新增内置支持HTTP proxy协议<br>
+4、内存回收（适用于内存限制设备）<br>
+5、全异步方式提升响应速度 <br>
+6、版本更新到v0.31.12<br>
+
+### 2023-08-29更新到v0.31.11：<br>
+1、文件管理支持默认按时间排序<br>
+2、新增macos M1/M2支持<br>
+3、版本更新到v0.31.11<br>
+
+### 2023-06-03更新到v0.31.10：<br>
+1、网络可靠性优化<br>
+2、优化网络传输效率<br>
+3、版本更新到v0.31.10<br>
+	
+### 2023-03-04更新到v0.31.9：<br>
+1、APP服务端模式新增“无障碍”服务，用户自行打开,实现自动重启<br>
+2、APP端操作优化：新增点击操作自动填充功能，便于新增配置<br>
+3、修复mips路由器下安装自定义代理无法提供服务的BUG<br>
+4、提供服务端自定义代理域名定时ip刷新功能（动态域名）<br>
+5、其它优化<br>
 
 ### 2022-12-14更新到v0.31.8：<br>
 1、APP服务端模式支持配置自定义代理及SSL加密<br>
