@@ -51,8 +51,8 @@
 
 # 
 ## 快速概览<a href=https://github.com/lazy-luo/smarGate/wiki/快速上手手册>【快速上手手册】</a> <a href="https://www.bilibili.com/video/BV1LM411k7Rf">【三方视频教学- B站】</a><br>
-* 平台适配，支持linux、windows、macos、android、（tob，小型机：hp-unix、solaris、AIX）<br>
-* cpu架构，支持x86、arm、mips、riscv（tob：alpha、PowerPC、SPRAC）<br>
+* 平台适配，支持linux、windows、macos、android（tob，小型机：hp-unix、solaris、AIX）<br>
+* cpu架构，支持x86、arm、mips、riscv、LoongArch64（tob：alpha、PowerPC、SPRAC）<br>
 * 注重安全，“内网”到“内网”的穿透，无需映射任何端口到外网，不更改任何防火墙配置<br>
 * 注重带宽，”4G手机+v6宽带“采用P2P方式访问内网服务（基于TCP协议，v4支持NAT1-3穿透）<br>
 * 注重节约，无需购买vps、无需公网IP；家中淘汰Android手机可做服务器<br>
@@ -375,6 +375,37 @@ ps：捐赠建议附上注册用户名<br>
 <summary>
 	<mark><font size=5 color=darkred>更新历史</font></mark>
 </summary>
+
+### 2024-10-12更新到v0.40.4：<br>
+1、新增PROXY协议，单端口同时支持socks5及http代理<br>
+2、新增http代理用户/密码认证<br>
+
+```
+<app-parameter>
+	...
+	<httpx-user value="user" />
+	<httpx-passwd value="pwd" />
+	<socks-user value="user" />
+	<socks-passwd value="pwd" />
+	...
+</app-parameter>
+```
+3、其它优化<br>
+
+### 2024-08-20<br>
+1、提升文件传输速度<br>
+2、其它优化<br>
+
+### 2024-08-17<br>
+1、修复网络出口变化时服务端长时间丢失的BUG<br>
+2、改进P2P连接机制，提升P2P连接成功率<br>
+
+### 2024-08-06更新到v0.40.3<br>
+1、修复windows下代理连接偶发断开的BUG<br>
+2、修复windows下低带宽时高CPU占用的BUG<br>
+3、服务端支持动态资源回收，适合内存限制设备<br>
+4、新增编译包，支持LoongArch64架构<br>
+5、版本更新到v0.40.3<br>
 
 ### 2024-07-11<br>
 1、修复代理地址错误显示为localhost的BUG<br>
